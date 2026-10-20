@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
 <title>El Sacrificio del Brujo Chilote — Saga Mítica Interactiva</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,19 +49,29 @@
     <a href="#/descargar" class="nav-dl">⬇ Descargar</a>
   </nav>
   <div class="sound-bar">
-    <button id="btn-search" class="snd-skip" onclick="openSearchModal()" title="Buscador Global del Códice (Ctrl+K)">🔍 Buscar</button>
-    <button id="snd-rain" class="snd-skip" title="Activar/Pausar Lluvia Austral y Fogón Chilote">🌧 Lluvia: Off</button>
+    <button id="btn-search" class="snd-skip" onclick="openSearchModal()" title="Buscador Global del Códice (Ctrl+K)">🔍 <span class="hide-mob">Buscar</span></button>
+    <button id="snd-rain" class="snd-skip" title="Activar/Pausar Lluvia Austral y Fogón Chilote">🌧 <span class="hide-mob">Lluvia: Off</span></button>
     <button id="snd" title="Activar/Pausar música mística">
-      <span class="snd-ic">♪</span> <span id="snd-txt">Música: Off</span>
+      <span class="snd-ic">♪</span> <span id="snd-txt" class="hide-mob">Música: Off</span>
     </button>
     <button id="snd-next" title="Cambiar movimiento musical" class="snd-skip" style="display:none">⏭</button>
     <span id="snd-mood" class="snd-mood"></span>
+    <button id="mob-menu-btn" class="mob-menu-btn" onclick="document.querySelector('.nav').classList.toggle('mob-open')" aria-label="Abrir menú de navegación">☰</button>
   </div>
 </header>
 
 <main id="app"></main>
 <div id="art-modal" class="art-modal" aria-hidden="true"></div>
 <div id="search-modal" class="art-modal" aria-hidden="true"></div>
+
+<nav class="mobile-bottom-nav" aria-label="Navegación rápida móvil">
+  <a href="#/"><span>🏠</span><small>Inicio</small></a>
+  <a href="#/libros"><span>📖</span><small>Códice</small></a>
+  <a href="#/escenas"><span>🖼</span><small>Arte</small></a>
+  <a href="#/mapa"><span>🗺</span><small>Mapa</small></a>
+  <a href="#/runas"><span>ᚱ</span><small>Grimorio</small></a>
+  <a href="#/descargar"><span>⬇</span><small>Bajar</small></a>
+</nav>
 
 <footer>
   <div class="footer-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ</div>

@@ -216,7 +216,7 @@ function toggleRainSound() {
   }
   if (sndRainBtn) {
     sndRainBtn.classList.toggle('on', rainOn);
-    sndRainBtn.textContent = rainOn ? '🌧🔥 Lluvia y Fogón: On' : '🌧 Lluvia: Off';
+    sndRainBtn.innerHTML = rainOn ? '🌧🔥 <span class="hide-mob">Lluvia y Fogón: On</span>' : '🌧 <span class="hide-mob">Lluvia: Off</span>';
   }
 }
 if (sndRainBtn) sndRainBtn.onclick = toggleRainSound;
@@ -826,6 +826,10 @@ function reader(id, n) {
     document.getElementById('pr').style.width = ((i + 1) / total * 100) + '%';
     document.getElementById('pv').disabled = i === 0;
     document.getElementById('nx').disabled = i === total - 1;
+    if (dir && innerWidth <= 860) {
+      const stg = document.querySelector('.stage');
+      if (stg && stg.getBoundingClientRect().top < 0) stg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
   const go = d => {
     if (busy) return;
@@ -1524,7 +1528,8 @@ const allCoversGalleryHTML = () => {
     { img: D.images.cover, label: 'Portada General — Trilogía Completa' },
     { img: D.images.backCover, label: 'Contraportada General — Trilogía Completa' },
     { img: D.images.spine || 'img/Lateral.jpg', label: 'Lomo Editorial del Códice (Lateral)' },
-    { img: D.images.bookmark || 'img/Guarda_Pagina.jpg', label: 'Guarda Página / Marcapáginas Oficial' }
+    { img: D.images.bookmark || 'img/Guarda_Pagina.jpg', label: 'Guarda Página / Marcapáginas Oficial' },
+    { img: 'img/QR_El_Sacrificio_del_Brujo_Chilote.png', label: 'Código QR Oficial Ilustrado (Acceso Directo Web)' }
   ].filter(x => x.img);
 
   return `<div class="covers-showcase" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
@@ -1600,7 +1605,9 @@ function route() {
 
 function markNav(p) {
   const t = '#/' + ({ libro: 'libros', leer: 'libros' }[p[0]] || p[0] || '');
-  document.querySelectorAll('.nav nav a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === t));
+  document.querySelectorAll('.nav nav a, .mobile-bottom-nav a').forEach(a => a.classList.toggle('on', a.getAttribute('href') === t));
+  const navEl = document.querySelector('.nav');
+  if (navEl) navEl.classList.remove('mob-open');
 }
 addEventListener('hashchange', route);
 route();

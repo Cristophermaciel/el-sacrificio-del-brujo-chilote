@@ -1247,3 +1247,376 @@ footer {
   border-color: var(--gold);
   transform: translateY(-3px);
 }
+
+
+/* =====================================================================
+   ADAPTACIÓN MÓVIL INTEGRAL (SMARTPHONES & TABLETS)
+   ===================================================================== */
+.mob-menu-btn,
+.mobile-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  body {
+    font-size: 17.5px;
+    padding-bottom: 68px;
+  }
+  .hide-mob,
+  .snd-mood {
+    display: none !important;
+  }
+
+  /* Barra superior compacta de 1 sola línea + menú desplegable */
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    gap: 8px;
+  }
+  .brand {
+    font-size: 15.5px;
+    gap: 8px;
+  }
+  .brand-rune {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+  }
+  .sound-bar {
+    gap: 6px;
+    margin-left: auto;
+  }
+  #snd, .snd-skip {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+  .mob-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 34px;
+    border-radius: 8px;
+    background: rgba(212, 175, 55, 0.14);
+    border: 1px solid rgba(212, 175, 55, 0.55);
+    color: var(--gold);
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .nav nav {
+    display: none;
+    order: 4;
+    width: 100%;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 6px 6px;
+    margin-top: 6px;
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+    background: rgba(7, 11, 9, 0.96);
+    border-radius: 0 0 12px 12px;
+  }
+  .nav.mob-open nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .nav nav a {
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    font-size: 12px;
+    text-align: center;
+  }
+  .nav nav a.nav-dl {
+    grid-column: 1 / -1;
+  }
+
+  /* Barra de navegación fija inferior estilo App Nativa */
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 95;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    background: rgba(6, 10, 8, 0.95);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.85);
+    padding: 5px 4px calc(5px + env(safe-area-inset-bottom, 0px));
+  }
+  .mobile-bottom-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 2px;
+    color: var(--muted);
+    font-family: 'Cinzel', serif;
+    border-radius: 8px;
+    transition: .2s;
+  }
+  .mobile-bottom-nav a span {
+    font-size: 17px;
+    line-height: 1.1;
+  }
+  .mobile-bottom-nav a small {
+    font-size: 9.5px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .mobile-bottom-nav a.on {
+    color: var(--gold);
+    background: rgba(212, 175, 55, 0.12);
+    text-shadow: 0 0 10px rgba(var(--rgb), 0.7);
+  }
+
+  /* Contenedor principal y Hero en móvil */
+  main {
+    padding: 18px 14px 48px;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    min-height: auto;
+    padding: 8px 0 24px;
+    text-align: center;
+  }
+  .eyebrow {
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    justify-content: center;
+  }
+  .hero h1 {
+    font-size: clamp(27px, 7.8vw, 38px);
+    margin-bottom: 12px;
+  }
+  .hero p.lead {
+    font-size: 17.5px;
+    line-height: 1.52;
+    margin-bottom: 16px;
+  }
+  .chips {
+    justify-content: center;
+    gap: 6px;
+    margin: 12px 0 18px;
+  }
+  .chip {
+    font-size: 10.5px;
+    padding: 4px 10px;
+  }
+  .hero-actions {
+    justify-content: center;
+    gap: 10px;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 16px;
+    font-size: 12px;
+  }
+  .book3d {
+    width: min(260px, 72vw);
+  }
+
+  h2.title {
+    font-size: clamp(21px, 6vw, 28px);
+    margin: 36px 0 18px;
+  }
+  h2.title::after {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+  }
+
+  .synopsis-box {
+    padding: 22px 18px;
+    font-size: 17.5px;
+    border-radius: 14px;
+  }
+
+  /* Grillas adaptables sin desborde lateral en pantallas de 320px-414px */
+  .grid,
+  .scenes-grid,
+  .glossary-grid,
+  .dl-showcase,
+  .covers-showcase,
+  .oracle-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+  .dl-card {
+    padding: 20px 16px;
+  }
+  .dl-card h3 {
+    font-size: 19px;
+  }
+  .book-head {
+    grid-template-columns: 1fr !important;
+    padding: 18px 16px;
+    gap: 20px;
+  }
+  .toc a {
+    font-size: 15.5px;
+    padding: 10px 8px;
+    gap: 8px;
+  }
+
+  /* Lector del Códice en Teléfono (sin corte de texto y con altura fluida) */
+  .reader-toolbar {
+    padding: 8px 10px;
+    gap: 8px;
+    justify-content: center;
+  }
+  .reader-tool-group {
+    justify-content: center;
+    width: 100%;
+    gap: 5px;
+  }
+  .reader-btn {
+    padding: 6px 9px;
+    font-size: 10.5px;
+  }
+  .book {
+    height: auto !important;
+    min-height: 68vh;
+  }
+  .page {
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+    min-height: 68vh;
+    padding: 34px 18px 46px !important;
+    overflow: visible !important;
+  }
+  .page.cur {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+  .page-inner {
+    overflow: visible !important;
+  }
+  .page p {
+    font-size: 16.5px !important;
+    line-height: 1.58 !important;
+    text-align: left;
+    text-indent: 1em;
+  }
+  .page h1 {
+    font-size: 19px;
+  }
+  .rune-strip {
+    left: 14px;
+    right: 14px;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+  }
+  .page-border {
+    inset: 8px;
+  }
+  .plate-frame img {
+    max-height: 38vh;
+  }
+  .ctrl {
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .ctrl button {
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Grimorio en Móvil: cinta horizontal deslizable de runas arriba */
+  .grim-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .rlist {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    gap: 8px;
+    scroll-snap-type: x mandatory;
+  }
+  .rlist li {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+  .rlist a {
+    white-space: nowrap;
+    padding: 8px 12px;
+    background: rgba(16, 24, 20, 0.85);
+    border: 1px solid rgba(212, 175, 55, 0.28);
+    font-size: 12px;
+  }
+  .grim-sheet {
+    padding: 34px 18px 44px;
+    min-height: auto;
+  }
+  .rune-medallion {
+    width: 150px;
+    height: 150px;
+  }
+  .rune-drawn {
+    font-size: 70px;
+  }
+
+  /* Mapa en Móvil */
+  .map-wrap {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .map-detail {
+    position: static;
+  }
+  .map-detail-body {
+    padding: 18px 16px;
+  }
+  .map-timeline {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+  }
+  .map-step-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  /* Modal Lightbox y Buscador en Móvil */
+  .art-modal {
+    padding: 12px;
+  }
+  .art-modal-box {
+    grid-template-columns: 1fr;
+    max-height: 88vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .art-modal-img {
+    max-height: 40vh;
+    min-height: 220px;
+  }
+  .art-modal-img img {
+    max-height: 40vh;
+  }
+  .art-modal-info {
+    padding: 18px 16px 22px;
+    overflow-y: visible;
+  }
+  .search-box {
+    padding: 16px 14px;
+    max-height: 86vh;
+  }
+  .search-input {
+    font-size: 17px;
+    padding: 11px 14px;
+  }
+}
