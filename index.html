@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El Sacrificio del Brujo Chilote — Saga Mítica Interactiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- SVG Filters for parchment roughness & ink bleed -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="ink-bleed" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="rune-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<div class="fog f1"></div>
+<div class="fog f2"></div>
+<canvas id="fx"></canvas>
+<div id="glow"></div>
+
+<header class="nav">
+  <a class="brand" href="#/">
+    <span class="brand-rune">ᚱ</span>
+    <span class="brand-txt">El Brujo Chilote</span>
+  </a>
+  <nav>
+    <a href="#/">Inicio</a>
+    <a href="#/libros">Códice &amp; Tomos</a>
+    <a href="#/escenas">Ilustraciones</a>
+    <a href="#/mapa">Mapa</a>
+    <a href="#/personajes">Bestiario</a>
+    <a href="#/runas">Grimorio</a>
+    <a href="#/oraculo">🔮 Oráculo</a>
+    <a href="#/linajes">Linajes &amp; Glosario</a>
+    <a href="#/descargar" class="nav-dl">⬇ Descargar</a>
+  </nav>
+  <div class="sound-bar">
+    <button id="btn-search" class="snd-skip" onclick="openSearchModal()" title="Buscador Global del Códice (Ctrl+K)">🔍 Buscar</button>
+    <button id="snd-rain" class="snd-skip" title="Activar/Pausar Lluvia Austral y Fogón Chilote">🌧 Lluvia: Off</button>
+    <button id="snd" title="Activar/Pausar música mística">
+      <span class="snd-ic">♪</span> <span id="snd-txt">Música: Off</span>
+    </button>
+    <button id="snd-next" title="Cambiar movimiento musical" class="snd-skip" style="display:none">⏭</button>
+    <span id="snd-mood" class="snd-mood"></span>
+  </div>
+</header>
+
+<main id="app"></main>
+<div id="art-modal" class="art-modal" aria-hidden="true"></div>
+<div id="search-modal" class="art-modal" aria-hidden="true"></div>
+
+<footer>
+  <div class="footer-runes">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ</div>
+  <p>© Cristopher Maciel — <span id="ft"></span> · Ediciones de la Recta Provincia</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
