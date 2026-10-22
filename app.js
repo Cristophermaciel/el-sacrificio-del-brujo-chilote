@@ -277,7 +277,7 @@ ${downloadCardsHTML()}
 
 <h2 class="title">Plan Maestro de Ilustraciones (${D.scenePlan.length} Escenas Clave)</h2>
 <p style="text-align:center;color:var(--muted);max-width:760px;margin:-12px auto 24px">
-  Recorre las ${D.scenePlan.length} escenas fundamentales ilustradas para los tres tomos y los largos viajes de Cristopher. Haz clic en cualquier lámina para ampliarla o ir directamente a su página en el Códice.
+  Recorre las ${D.scenePlan.length} escenas fundamentales ilustradas para los tres tomos y los largos viajes de Neyküyene. Haz clic en cualquier lámina para ampliarla o ir directamente a su página en el Códice.
 </p>
 <div class="scenes-grid">
   ${(D.scenePlan || []).slice(0, 6).map(s => renderSceneCard(s)).join('')}
@@ -309,7 +309,7 @@ function getMasterCompilationBook() {
     pdfFile: 'El_Sacrificio_del_Brujo_Chilote.pdf',
     docxFile: 'El_Sacrificio_del_Brujo_Chilote.docx',
     epubFile: 'El_Sacrificio_del_Brujo_Chilote.epub',
-    description: 'Edición Maestra Integral que recopila en un solo gran volumen los Tres Tomos completos (Tomo I: El Amor Eterno, Tomo II: El Sacrificio, Tomo III: Nunca Es Tarde Para Salvar), las 72 ilustraciones de capítulos con los nuevos personajes y eventos, las 16 Runas del Tablón de Quicaví, el Bestiario Ilustrado de 31 entidades, el Atlas de los 16 Grandes Recorridos, los Árboles de Linajes y el Glosario Mitológico.',
+    description: `Edición Maestra Integral que recopila en un solo gran volumen los Tres Tomos completos (Tomo I: El Amor Eterno, Tomo II: El Sacrificio, Tomo III: Nunca Es Tarde Para Salvar), las ilustraciones de capítulos con los nuevos personajes y eventos de la Mitología de Chiloé, las 16 Runas del Tablón de Quicaví, el Bestiario Ilustrado de ${D.characters.length} entidades, el Atlas de los 16 Grandes Recorridos, los Árboles de Linajes y el Glosario Mitológico.`,
     acts: allActs
   };
 }
@@ -343,7 +343,7 @@ const booksGrid = () => {
         <div class="chips" style="margin:12px 0">
           <span class="chip">✦ ${totalMasterChapters} Capítulos Integrales</span>
           <span class="chip">✦ 72 Ilustraciones de Capítulos y Eventos</span>
-          <span class="chip">✦ 16 Runas + 31 Entidades + Linajes y Glosario</span>
+          <span class="chip">✦ 16 Runas + ${D.characters.length} Entidades + Linajes y Glosario</span>
           <span class="chip">✦ 1.339 Páginas en Pergamino Vectorial</span>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
@@ -395,7 +395,7 @@ const booksGrid = () => {
         </a>
       </div>
       <div class="b" style="display:flex;flex-direction:column;flex:1">
-        <div class="r">${esc(G.number)} · 151 Páginas · 16 Runas · 31 Seres · Glosario</div>
+        <div class="r">${esc(G.number)} · 165+ Páginas · 16 Runas · ${D.characters.length} Seres · Glosario</div>
         <h3><a href="#/runas" style="color:inherit;text-decoration:none">${esc(G.title)}</a></h3>
         <p style="flex:1">${esc(G.synopsis)}</p>
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:14px">
@@ -874,7 +874,7 @@ const mapView = (idx = 0) => {
   return `
   <h2 class="title" style="margin-top:10px">Mapa Cartográfico del Recorrido del Brujo</h2>
   <p style="text-align:center;color:var(--muted);max-width:760px;margin:-12px auto 22px">
-    Sigue los cinco siglos de travesía de Cristopher y las reencarnaciones del alma amada, desde la fractura primordial hasta las costas brujas de Cucao en 2024. Haz clic en cada hito del pergamino.
+    Sigue los cinco siglos de travesía de Neyküyene y las reencarnaciones del alma amada, desde la fractura primordial hasta las costas brujas de Cucao en 2024. Haz clic en cada hito del pergamino.
   </p>
   <div class="map-timeline">
     ${stops.map((s, i) => `<a class="map-step-btn ${i === idx ? 'on' : ''}" href="#/mapa/${i}">${i + 1}. ${esc(s.year)}</a>`).join('')}
@@ -1054,30 +1054,53 @@ const scenesView = (filter = 'all') => {
   }).join('')}`;
 };
 
-/* ================= Bestiario Ilustrado (31 Personajes y Seres Mitológicos) ================= */
+/* ================= Bestiario Ilustrado y Mitología de Chiloé (49 Personajes y Seres) ================= */
 function charCategory(c) {
   const t = (c.name + ' ' + c.role + ' ' + c.type).toLowerCase();
+  if (/1\. deidades primordiales|ten ten|cai cai/.test(t)) return 'deidades';
+  if (/2\. seres y espíritus del mar|millalobo|pincoya|pincoy|sirena chilota|camahueto|cuero|caleuche/.test(t)) return 'mar';
+  if (/3\. seres del bosque|trauco|fiura|invunche|imbunche|basilisco|culebrón/.test(t)) return 'bosque';
+  if (/4\. brujería y seres tutelares|brujo de chiloé|voladora|huenchula|ngenechen|ngen-ko/.test(t)) return 'brujeria';
   if (/reencarnaci|rayén|luz|inés|rosario|chiara|sin nombre|sin memoria|narradora/.test(t)) return 'reencarnaciones';
   if (/vampir|caín|aukan|lautaro|noble|amaru/.test(t)) return 'vampiros';
-  if (/hada|duende|caleuche|pudú|zorro|runa|barquero|abel|kallfü/.test(t)) return 'velo';
+  if (/hada|duende|pudú|zorro|runa|barquero|abel|kallfü/.test(t)) return 'velo';
   return 'protagonistas';
+}
+
+function isChiloeMyth(c) {
+  const cat = charCategory(c);
+  return cat === 'deidades' || cat === 'mar' || cat === 'bosque' || cat === 'brujeria';
 }
 
 const characters = (cat = 'all') => {
   const all = D.characters || [];
-  const filtered = cat === 'all' ? all : all.filter(c => charCategory(c) === cat);
+  const filtered = cat === 'all'
+    ? all
+    : cat === 'mitologia'
+      ? all.filter(isChiloeMyth)
+      : all.filter(c => charCategory(c) === cat);
   return `
-  <h2 class="title" style="margin-top:10px">Bestiario Ilustrado — ${all.length} Personajes y Criaturas</h2>
-  <p style="text-align:center;color:var(--muted);max-width:760px;margin:-12px auto 20px">
-    Brujos de la Recta Provincia, las seis vidas del alma amada, aliados de los largos viajes, vampiros de la cordillera y criaturas del Velo Místico. Haz clic en cualquier retrato para abrir su ficha completa.
+  <h2 class="title" style="margin-top:10px">Bestiario Ilustrado y Mitología de Chiloé — ${all.length} Personajes y Seres</h2>
+  <p style="text-align:center;color:var(--muted);max-width:820px;margin:-12px auto 20px">
+    Guía ilustrada y resumida de los <strong>Personajes de la Mitología de Chiloé</strong> integrados en los tres tomos junto a <strong>Neyküyene</strong>, las seis vidas del alma amada, los brujos de la Recta Provincia y las criaturas del Velo Místico. Haz clic en cualquier retrato para abrir su ficha completa y crónica.
   </p>
   <div class="filter-bar">
     <a class="filter-pill ${cat === 'all' ? 'on' : ''}" href="#/personajes">Todos (${all.length})</a>
-    <a class="filter-pill ${cat === 'protagonistas' ? 'on' : ''}" href="#/personajes/protagonistas">Brujos, Machis y Aliados Viajeros</a>
+    <a class="filter-pill ${cat === 'mitologia' ? 'on' : ''}" href="#/personajes/mitologia">🌊 Guía Mitología de Chiloé (19)</a>
+    <a class="filter-pill ${cat === 'deidades' ? 'on' : ''}" href="#/personajes/deidades">1. Deidades Primordiales</a>
+    <a class="filter-pill ${cat === 'mar' ? 'on' : ''}" href="#/personajes/mar">2. Espíritus del Mar y Costas</a>
+    <a class="filter-pill ${cat === 'bosque' ? 'on' : ''}" href="#/personajes/bosque">3. Seres del Bosque y Tierra</a>
+    <a class="filter-pill ${cat === 'brujeria' ? 'on' : ''}" href="#/personajes/brujeria">4. Brujería y Seres Tutelares</a>
+    <a class="filter-pill ${cat === 'protagonistas' ? 'on' : ''}" href="#/personajes/protagonistas">Neyküyene y Aliados</a>
     <a class="filter-pill ${cat === 'reencarnaciones' ? 'on' : ''}" href="#/personajes/reencarnaciones">Las Vidas de la Amada</a>
-    <a class="filter-pill ${cat === 'vampiros' ? 'on' : ''}" href="#/personajes/vampiros">Vampiros e Hijos de la Noche</a>
-    <a class="filter-pill ${cat === 'velo' ? 'on' : ''}" href="#/personajes/velo">Criaturas y Navíos del Velo</a>
+    <a class="filter-pill ${cat === 'vampiros' ? 'on' : ''}" href="#/personajes/vampiros">Hijos de la Noche</a>
+    <a class="filter-pill ${cat === 'velo' ? 'on' : ''}" href="#/personajes/velo">Criaturas del Velo</a>
   </div>
+  ${(cat === 'mitologia' || cat === 'deidades' || cat === 'all') ? `
+  <div class="synopsis-box" style="margin-bottom:22px;padding:16px 22px;border-left:4px solid var(--gold)">
+    <div class="eyebrow" style="margin-bottom:4px">✦ Nota de Contexto Cosmogónico · Formación del Archipiélago de Chiloé</div>
+    <p style="margin:0;font-size:17.5px">El choque ancestral entre <strong>Ten Ten Vilu (Trentren Vilu)</strong> y <strong>Cai Cai Vilu (Caicai Vilu)</strong> explica la formación geográfica del Archipiélago de Chiloé: el levantamiento de la tierra por Ten Ten Vilu, fragmentado por el avance embravecido del mar de Cai Cai Vilu, dio origen a las múltiples islas, fiordos y canales donde transcurre la historia de <strong>Neyküyene</strong>.</p>
+  </div>` : ''}
   <div class="grid">${filtered.map(c => {
     const idx = all.indexOf(c);
     return `
@@ -1102,7 +1125,7 @@ const runes = (i = 0) => {
   return `
   <h2 class="title" style="margin-top:10px">Grimorio de las ${list.length} Runas del Sacrificio y de los Viajes</h2>
   <p style="text-align:center;color:var(--muted);max-width:760px;margin:-12px auto 24px">
-    Cada runa está inscrita sobre pergamino siguiendo la tradición del Tablón de Quicaví y los largos recorridos de Cristopher. Además, puedes consultar el <a href="#/oraculo" style="color:var(--gold);text-decoration:underline">Oráculo Rúnico Interactivo</a> o descargar el <strong>Grimorio y Bestiario Expandido (151 páginas)</strong> como cuarto libro independiente en PDF, Word y ePub.
+    Cada runa está inscrita sobre pergamino siguiendo la tradición del Tablón de Quicaví y los largos recorridos de Neyküyene. Además, puedes consultar el <a href="#/oraculo" style="color:var(--gold);text-decoration:underline">Oráculo Rúnico Interactivo</a> o descargar el <strong>Grimorio y Bestiario Expandido</strong> como cuarto libro independiente en PDF, Word y ePub.
   </p>
   ${G.title ? `
   <div class="book-head" style="margin-bottom:28px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:center">
@@ -1227,7 +1250,7 @@ const oracleView = () => {
   return `
   <h2 class="title" style="margin-top:10px">Oráculo Rúnico del Tablón de Quicaví</h2>
   <p style="text-align:center;color:var(--muted);max-width:780px;margin:-12px auto 24px">
-    En la Caverna de Quicaví, la machi Huenchumán y Cristopher leían las corrientes del Velo lanzando tres astillas de alerce negro grabadas con las 16 runas matrices. Consulta la tirada de los Tres Tiempos.
+    En la Caverna de Quicaví, la machi Huenchumán y Neyküyene leían las corrientes del Velo lanzando tres astillas de alerce negro grabadas con las 16 runas matrices. Consulta la tirada de los Tres Tiempos.
   </p>
   <div class="oracle-wrap">
     <div class="eyebrow">ᚱ Tirada Sagrada de los Tres Tiempos · Pasado, Presente y Destino ᚱ</div>
@@ -1389,7 +1412,7 @@ window.openSearchModal = () => {
   modal.innerHTML = `
     <div class="search-box" onclick="event.stopPropagation()">
       <button class="art-modal-close" onclick="closeSearchModal()" title="Cerrar">✕</button>
-      <div class="eyebrow" style="margin-bottom:6px">🔍 Buscador Instantáneo del Códice (159 Capítulos, 16 Runas, 31 Entidades y Glosario)</div>
+      <div class="eyebrow" style="margin-bottom:6px">🔍 Buscador Instantáneo del Códice (159 Capítulos, 16 Runas, ${D.characters.length} Entidades y Glosario)</div>
       <input type="search" id="global-search-in" class="search-input" placeholder="Escribe un nombre, lugar, runa o palabra clave (ej. Cucao, Rayén, Aukan, Matías, Sowilo, Caleuche)...">
       <div class="search-results" id="global-search-res"></div>
     </div>`;
@@ -1442,7 +1465,7 @@ const downloadCardsHTML = () => {
         <img src="${esc(D.images.cover)}" alt="Portada General" style="width:100%;height:210px;object-fit:cover;border-radius:6px;border:1px solid rgba(212,175,55,0.5)">
         <img src="${esc(D.images.backCover)}" alt="Contraportada General" style="width:100%;height:210px;object-fit:cover;border-radius:6px;border:1px solid rgba(212,175,55,0.5)">
       </div>
-      <p>La versión libro integral que recopila los <strong>Tres Tomos completos</strong> (159 capítulos, 72 ilustraciones de capítulos con todos los nuevos personajes y eventos) más el <strong>Grimorio Rúnico, Bestiario de 31 entidades, Atlas Cartográfico, Árboles de Linajes y Glosario Mitológico</strong> en un solo volumen monumental de <strong>1.339 páginas</strong> sobre pergamino con texto vectorial seleccionable y letras capitulares iluminadas.</p>
+      <p>La versión libro integral que recopila los <strong>Tres Tomos completos</strong> (159 capítulos e ilustraciones de capítulos con todos los personajes de la Mitología de Chiloé) más el <strong>Grimorio Rúnico, Bestiario de ${D.characters.length} entidades, Atlas Cartográfico, Árboles de Linajes y Glosario Mitológico</strong> en un solo volumen monumental sobre pergamino con texto vectorial seleccionable y letras capitulares iluminadas.</p>
       <ul class="dl-specs">
         <li><strong>1.339 páginas completas en PDF</strong> (texto real sobre pergamino), <strong>Word (.docx)</strong> y <strong>ePub (.epub) para Kindle / Apple Books</strong></li>
         <li>Incluye <strong>Tomo I (305 págs) + Tomo II (407 págs) + Tomo III (509 págs) + Grimorio, Linajes y Glosario (151 págs)</strong></li>
@@ -1498,7 +1521,7 @@ const downloadCardsHTML = () => {
       <p>${esc(G.synopsis)}</p>
       <ul class="dl-specs">
         <li><strong>151 páginas completas</strong> en pergamino vectorial (Runas, Bestiario, Atlas, Linajes, Cronología y Glosario)</li>
-        <li><strong>Las 16 Runas del Tablón</strong> con cánticos + <strong>Bestiario de 31 entidades ilustradas</strong></li>
+        <li><strong>Las 16 Runas del Tablón</strong> con cánticos + <strong>Bestiario de ${D.characters.length} entidades ilustradas (incluyendo las 19 deidades y seres de la Mitología de Chiloé)</strong></li>
         <li>Disponible en PDF, Word (<code>.docx</code>) y ePub (<code>.epub</code>)</li>
       </ul>
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto">
