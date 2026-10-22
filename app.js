@@ -309,7 +309,7 @@ function getMasterCompilationBook() {
     pdfFile: 'El_Sacrificio_del_Brujo_Chilote.pdf',
     docxFile: 'El_Sacrificio_del_Brujo_Chilote.docx',
     epubFile: 'El_Sacrificio_del_Brujo_Chilote.epub',
-    description: `Edición Maestra Integral que recopila en un solo gran volumen los Tres Tomos completos (Tomo I: El Amor Eterno, Tomo II: El Sacrificio, Tomo III: Nunca Es Tarde Para Salvar), las ilustraciones de capítulos con los nuevos personajes y eventos de la Mitología de Chiloé, las 16 Runas del Tablón de Quicaví, el Bestiario Ilustrado de ${D.characters.length} entidades, el Atlas de los 16 Grandes Recorridos, los Árboles de Linajes y el Glosario Mitológico.`,
+    description: `Edición Maestra Integral que recopila en un solo gran volumen los Tres Tomos completos (Tomo I: El Amor Eterno, Tomo II: El Sacrificio, Tomo III: Nunca Es Tarde Para Salvar), las ilustraciones de capítulos con los nuevos personajes y eventos de la Mitología de Chiloé, las 24 Runas del Tablón de Quicaví, el Bestiario Ilustrado de ${D.characters.length} entidades, el Atlas de los 26 Grandes Hitos Cartográficos, los Árboles de Linajes y el Glosario Mitológico.`,
     acts: allActs
   };
 }
@@ -323,7 +323,7 @@ const booksGrid = () => {
   const G = D.grimorioBook || {};
   const M = getMasterCompilationBook();
   const totalMasterChapters = M.acts.reduce((n, a) => n + a.chapters.length, 0);
-  const pageTargets = { 'tomo-1': 305, 'tomo-2': 407, 'tomo-final': 509 };
+  const pageTargets = { 'tomo-1': 400, 'tomo-2': 500, 'tomo-final': 600 };
   return `
   <!-- TARJETA DESTACADA: VERSIÓN LIBRO RECOPILATORIA DE LOS 3 TOMOS + GRIMORIO -->
   <div class="card rise" data-acc="emerald" style="margin-bottom:24px;border:2px solid rgba(212,175,55,0.65);background:linear-gradient(135deg, rgba(16,42,32,0.88), rgba(24,14,18,0.92))">
@@ -337,19 +337,19 @@ const booksGrid = () => {
         </a>
       </div>
       <div class="b" style="padding:6px">
-        <div class="r" style="font-size:13px;color:#fbbf24">★ EDICIÓN INTEGRAL RECOPILATORIA · LOS 3 TOMOS + GRIMORIO Y BESTIARIO · 1.339 PÁGINAS</div>
+        <div class="r" style="font-size:13px;color:#fbbf24">★ EDICIÓN INTEGRAL RECOPILATORIA · LOS 3 TOMOS + GRIMORIO Y BESTIARIO · 1.680 PÁGINAS</div>
         <h3 style="font-size:26px;margin:6px 0 10px"><a href="#/libro/trilogia-completa" style="color:inherit;text-decoration:none">${esc(M.title)}</a></h3>
         <p style="font-size:17px;line-height:1.6">${esc(M.description)}</p>
         <div class="chips" style="margin:12px 0">
           <span class="chip">✦ ${totalMasterChapters} Capítulos Integrales</span>
-          <span class="chip">✦ 72 Ilustraciones de Capítulos y Eventos</span>
-          <span class="chip">✦ 16 Runas + ${D.characters.length} Entidades + Linajes y Glosario</span>
-          <span class="chip">✦ 1.339 Páginas en Pergamino Vectorial</span>
+          <span class="chip">✦ 174 Ilustraciones de Capítulos y Eventos</span>
+          <span class="chip">✦ 24 Runas + ${D.characters.length} Entidades + Linajes y Glosario</span>
+          <span class="chip">✦ 1.680 Páginas en Pergamino Vectorial</span>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
           <a class="btn" href="#/libro/trilogia-completa">ᚱ Abrir Obra Completa (${totalMasterChapters} Capítulos)</a>
           <a class="btn sec" href="#/leer/trilogia-completa/0">🔊 Leer / Escuchar Audiolibro</a>
-          <a class="btn sec" href="${esc(M.pdfFile)}" download="El Sacrificio del Brujo Chilote - Edicion Completa.pdf">⬇ PDF (1.339 Págs)</a>
+          <a class="btn sec" href="${esc(M.pdfFile)}" download="El Sacrificio del Brujo Chilote - Edicion Completa.pdf">⬇ PDF (1.680 Págs)</a>
           <a class="btn sec" href="${esc(M.docxFile)}" download="El Sacrificio del Brujo Chilote - Edicion Completa.docx">⬇ Word (.docx)</a>
           <a class="btn sec" href="${esc(M.epubFile)}" download="El Sacrificio del Brujo Chilote - Edicion Completa.epub">⬇ ePub (Kindle)</a>
         </div>
@@ -395,7 +395,7 @@ const booksGrid = () => {
         </a>
       </div>
       <div class="b" style="display:flex;flex-direction:column;flex:1">
-        <div class="r">${esc(G.number)} · 165+ Páginas · 16 Runas · ${D.characters.length} Seres · Glosario</div>
+        <div class="r">${esc(G.number)} · 180 Páginas · 24 Runas · ${D.characters.length} Seres · Glosario</div>
         <h3><a href="#/runas" style="color:inherit;text-decoration:none">${esc(G.title)}</a></h3>
         <p style="flex:1">${esc(G.synopsis)}</p>
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:14px">
@@ -414,19 +414,13 @@ const books = () => `<h2 class="title">El Códice Completo — Recopilación Int
 /* ================= Paginación del Libro (300 págs Tomo I, 400 págs Tomo II, 500 págs Tomo III, 1.200+ Completa) ================= */
 const pageCache = {};
 function paginate(b) {
-  const baseBudgets = { 'tomo-1': 2600, 'tomo-2': 2200, 'tomo-final': 2050, 'trilogia-completa': 2200 };
+  const baseBudgets = { 'tomo-1': 2000, 'tomo-2': 2000, 'tomo-final': 2000, 'trilogia-completa': 2000 };
   const budget = innerWidth < 760 ? 1400 : (baseBudgets[b.id] || 2100);
   if (pageCache[b.id + budget]) return pageCache[b.id + budget];
   const pages = [], chapters = [];
 
   // Map all 16 runes across the tomes so every rune appears as a full-page LOTR leaf
-  const tomeRunes = b.id === 'trilogia-completa'
-    ? D.runes.slice()
-    : b.id === 'tomo-1'
-      ? [D.runes[0], D.runes[1], D.runes[2], D.runes[3], D.runes[13], D.runes[14]].filter(Boolean)
-      : b.id === 'tomo-2'
-        ? [D.runes[4], D.runes[5], D.runes[6], D.runes[7], D.runes[15]].filter(Boolean)
-        : [D.runes[8], D.runes[9], D.runes[10], D.runes[11], D.runes[12]].filter(Boolean);
+  const tomeRunes = b.id === 'trilogia-completa' ? D.runes.slice() : b.id === 'tomo-1' ? D.runes.slice(0, 8) : b.id === 'tomo-2' ? D.runes.slice(8, 16) : D.runes.slice(16, 24);
   let rIdx = 0;
 
   b.acts.forEach((a, ai) => {
@@ -434,7 +428,7 @@ function paginate(b) {
       pages.push({ type: 'rune', act: a.title, rune: tomeRunes[rIdx++] });
     }
     a.chapters.forEach((c, ci) => {
-      const hasPaintedIll = c.illustration && !/image(41|42|43|44)\./.test(c.illustration.img);
+      const hasPaintedIll = Boolean(c.illustration && c.illustration.img);
       chapters.push({ title: c.title, act: a.title, page: pages.length, hasIll: hasPaintedIll });
       if (hasPaintedIll) {
         pages.push({
@@ -525,7 +519,7 @@ const runeMedallionSVG = () => `
 </svg>`;
 
 const renderRuneFolia = (r, actTitle, footerTxt) => {
-  const showPlate = r.ink && /rune_/.test(r.ink);
+  const showPlate = Boolean(r.ink);
   const showExtended = !footerTxt;
   return `
   <div class="page-border"></div>
@@ -1140,11 +1134,11 @@ const runes = (i = 0) => {
       </div>
     </div>
     <div>
-      <div class="act" style="margin-top:0">${esc(G.number)} · LIBRO SEPARADO · 151 PÁGINAS COMPLETAS</div>
+      <div class="act" style="margin-top:0">${esc(G.number)} · LIBRO SEPARADO · 180 PÁGINAS COMPLETAS</div>
       <h2 style="margin:0 0 8px;color:var(--accent);font-family:'Cinzel Decorative',serif">${esc(G.title)}</h2>
       <p style="color:var(--muted);font-size:18px;margin-bottom:14px">${esc(G.synopsis)}</p>
       <div class="hero-actions" style="flex-wrap:wrap">
-        <a class="btn" href="${esc(G.pdfFile)}" download>📕 PDF (151 Págs)</a>
+        <a class="btn" href="${esc(G.pdfFile)}" download>📕 PDF (180 Págs)</a>
         <a class="btn sec" href="${esc(G.docxFile)}" download>📘 Word (.docx)</a>
         ${G.epubFile ? `<a class="btn sec" href="${esc(G.epubFile)}" download>📗 ePub (Kindle)</a>` : ''}
         <a class="btn sec" href="#/oraculo">🔮 Tirada del Oráculo Rúnico</a>
@@ -1250,7 +1244,7 @@ const oracleView = () => {
   return `
   <h2 class="title" style="margin-top:10px">Oráculo Rúnico del Tablón de Quicaví</h2>
   <p style="text-align:center;color:var(--muted);max-width:780px;margin:-12px auto 24px">
-    En la Caverna de Quicaví, la machi Huenchumán y Neyküyene leían las corrientes del Velo lanzando tres astillas de alerce negro grabadas con las 16 runas matrices. Consulta la tirada de los Tres Tiempos.
+    En la Caverna de Quicaví, la machi Huenchumán y Neyküyene leían las corrientes del Velo lanzando tres astillas de alerce negro grabadas con las 24 runas matrices. Consulta la tirada de los Tres Tiempos.
   </p>
   <div class="oracle-wrap">
     <div class="eyebrow">ᚱ Tirada Sagrada de los Tres Tiempos · Pasado, Presente y Destino ᚱ</div>
@@ -1412,7 +1406,7 @@ window.openSearchModal = () => {
   modal.innerHTML = `
     <div class="search-box" onclick="event.stopPropagation()">
       <button class="art-modal-close" onclick="closeSearchModal()" title="Cerrar">✕</button>
-      <div class="eyebrow" style="margin-bottom:6px">🔍 Buscador Instantáneo del Códice (159 Capítulos, 16 Runas, ${D.characters.length} Entidades y Glosario)</div>
+      <div class="eyebrow" style="margin-bottom:6px">🔍 Buscador Instantáneo del Códice (174 Capítulos, 24 Runas, ${D.characters.length} Entidades y Glosario)</div>
       <input type="search" id="global-search-in" class="search-input" placeholder="Escribe un nombre, lugar, runa o palabra clave (ej. Cucao, Rayén, Aukan, Matías, Sowilo, Caleuche)...">
       <div class="search-results" id="global-search-res"></div>
     </div>`;
@@ -1454,25 +1448,25 @@ const notFound = () => `<h2 class="title">Las nieblas de Chiloé lo ocultaron</h
 /* ================= Descarga Oficial por Separado (3 Tomos + Libro del Grimorio + Trilogía Unificada) ================= */
 const downloadCardsHTML = () => {
   const G = D.grimorioBook || {};
-  const pageCounts = { 'tomo-1': 305, 'tomo-2': 407, 'tomo-final': 509 };
+  const pageCounts = { 'tomo-1': 400, 'tomo-2': 500, 'tomo-final': 600 };
   return `
   <!-- EDICIÓN MAESTRA RECOPILATORIA DE LOS 3 TOMOS + GRIMORIO Y BESTIARIO -->
   <div class="dl-showcase" style="margin-bottom:24px">
     <div class="dl-card rise" style="border:2px solid rgba(212,175,55,0.65);background:linear-gradient(135deg, rgba(16,42,32,0.88), rgba(24,14,18,0.92))">
-      <div class="dl-badge" style="color:#fbbf24">★ VERSIÓN LIBRO COMPLETA · RECOPILACIÓN DE LOS 3 TOMOS + GRIMORIO Y BESTIARIO (1.339 PÁGINAS)</div>
+      <div class="dl-badge" style="color:#fbbf24">★ VERSIÓN LIBRO COMPLETA · RECOPILACIÓN DE LOS 3 TOMOS + GRIMORIO Y BESTIARIO (1.680 PÁGINAS)</div>
       <h3>El Sacrificio del Brujo Chilote — Edición Completa Unificada (PDF, Word y ePub)</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:440px;margin:10px 0">
         <img src="${esc(D.images.cover)}" alt="Portada General" style="width:100%;height:210px;object-fit:cover;border-radius:6px;border:1px solid rgba(212,175,55,0.5)">
         <img src="${esc(D.images.backCover)}" alt="Contraportada General" style="width:100%;height:210px;object-fit:cover;border-radius:6px;border:1px solid rgba(212,175,55,0.5)">
       </div>
-      <p>La versión libro integral que recopila los <strong>Tres Tomos completos</strong> (159 capítulos e ilustraciones de capítulos con todos los personajes de la Mitología de Chiloé) más el <strong>Grimorio Rúnico, Bestiario de ${D.characters.length} entidades, Atlas Cartográfico, Árboles de Linajes y Glosario Mitológico</strong> en un solo volumen monumental sobre pergamino con texto vectorial seleccionable y letras capitulares iluminadas.</p>
+      <p>La versión libro integral que recopila los <strong>Tres Tomos completos</strong> (174 capítulos e ilustraciones de capítulos con todos los personajes de la Mitología de Chiloé) más el <strong>Grimorio Rúnico, Bestiario de ${D.characters.length} entidades, Atlas Cartográfico, Árboles de Linajes y Glosario Mitológico</strong> en un solo volumen monumental sobre pergamino con texto vectorial seleccionable y letras capitulares iluminadas.</p>
       <ul class="dl-specs">
-        <li><strong>1.339 páginas completas en PDF</strong> (texto real sobre pergamino), <strong>Word (.docx)</strong> y <strong>ePub (.epub) para Kindle / Apple Books</strong></li>
-        <li>Incluye <strong>Tomo I (305 págs) + Tomo II (407 págs) + Tomo III (509 págs) + Grimorio, Linajes y Glosario (151 págs)</strong></li>
+        <li><strong>1.680 páginas completas en PDF</strong> (texto real sobre pergamino), <strong>Word (.docx)</strong> y <strong>ePub (.epub) para Kindle / Apple Books</strong></li>
+        <li>Incluye <strong>Tomo I (400 págs) + Tomo II (500 págs) + Tomo III (600 págs) + Grimorio, Linajes y Glosario (180 págs)</strong></li>
         <li>Incluye todas las ilustraciones de los nuevos personajes, runas y eventos históricos</li>
       </ul>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:auto">
-        <a class="btn" style="flex:1" href="El_Sacrificio_del_Brujo_Chilote.pdf" download="El Sacrificio del Brujo Chilote - Edicion Completa.pdf">⬇ PDF Completo (1.339 Págs)</a>
+        <a class="btn" style="flex:1" href="El_Sacrificio_del_Brujo_Chilote.pdf" download="El Sacrificio del Brujo Chilote - Edicion Completa.pdf">⬇ PDF Completo (1.680 Págs)</a>
         <a class="btn sec" style="flex:1" href="El_Sacrificio_del_Brujo_Chilote.docx" download="El Sacrificio del Brujo Chilote - Edicion Completa.docx">⬇ Word (.docx)</a>
         <a class="btn sec" style="flex:1" href="El_Sacrificio_del_Brujo_Chilote.epub" download="El Sacrificio del Brujo Chilote - Edicion Completa.epub">⬇ ePub (Kindle / eReaders)</a>
         <a class="btn sec" href="#/leer/trilogia-completa/0">🔊 Leer / Escuchar Online</a>
@@ -1512,7 +1506,7 @@ const downloadCardsHTML = () => {
 
     ${G.title ? `
     <div class="dl-card rise">
-      <div class="dl-badge">🔮 Cuarto Libro Separado · 151 Páginas · Grimorio, Bestiario y Glosario</div>
+      <div class="dl-badge">🔮 Cuarto Libro Separado · 180 Páginas · Grimorio, Bestiario y Glosario</div>
       <h3>${esc(G.title)}</h3>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0">
         <img src="${esc(G.coverImage)}" alt="Portada Grimorio" style="width:100%;height:190px;object-fit:cover;border-radius:6px;border:1px solid rgba(212,175,55,0.45)">
@@ -1520,12 +1514,12 @@ const downloadCardsHTML = () => {
       </div>
       <p>${esc(G.synopsis)}</p>
       <ul class="dl-specs">
-        <li><strong>151 páginas completas</strong> en pergamino vectorial (Runas, Bestiario, Atlas, Linajes, Cronología y Glosario)</li>
-        <li><strong>Las 16 Runas del Tablón</strong> con cánticos + <strong>Bestiario de ${D.characters.length} entidades ilustradas (incluyendo las 19 deidades y seres de la Mitología de Chiloé)</strong></li>
+        <li><strong>180 páginas completas</strong> en pergamino vectorial (Runas, Bestiario, Atlas, Linajes, Cronología y Glosario)</li>
+        <li><strong>Las 24 Runas del Tablón</strong> con cánticos + <strong>Bestiario de ${D.characters.length} entidades ilustradas (incluyendo las 19 deidades y seres de la Mitología de Chiloé)</strong></li>
         <li>Disponible en PDF, Word (<code>.docx</code>) y ePub (<code>.epub</code>)</li>
       </ul>
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:auto">
-        <a class="btn" style="flex:1;padding:9px 10px;font-size:12px" href="${esc(G.pdfFile)}" download>⬇ PDF (151 Págs)</a>
+        <a class="btn" style="flex:1;padding:9px 10px;font-size:12px" href="${esc(G.pdfFile)}" download>⬇ PDF (180 Págs)</a>
         <a class="btn sec" style="flex:1;padding:9px 10px;font-size:12px" href="${esc(G.docxFile)}" download>⬇ Word</a>
         ${G.epubFile ? `<a class="btn sec" style="flex:1;padding:9px 10px;font-size:12px" href="${esc(G.epubFile)}" download>⬇ ePub</a>` : ''}
       </div>
@@ -1569,7 +1563,7 @@ const allCoversGalleryHTML = () => {
 const downloadView = () => `
   <h2 class="title" style="margin-top:10px">Centro de Descargas — Edición Completa, 3 Tomos y Grimorio (PDF, Word y ePub)</h2>
   <p style="text-align:center;color:var(--muted);max-width:820px;margin:-12px auto 26px">
-    Descarga la <strong>Edición Completa Recopilatoria (1.339 páginas)</strong>, cada uno de los <strong>Tres Tomos por separado</strong> (305, 407 y 509 páginas), o el <strong>Cuarto Libro del Grimorio, Bestiario, Linajes y Glosario (151 páginas)</strong> en formato <strong>PDF vectorial sobre pergamino</strong>, <strong>Microsoft Word (<code>.docx</code>)</strong> y <strong>ePub (<code>.epub</code> para Kindle, Apple Books y Kobo)</strong>.
+    Descarga la <strong>Edición Completa Recopilatoria (1.680 páginas)</strong>, cada uno de los <strong>Tres Tomos por separado</strong> (400, 500 y 600 páginas), o el <strong>Cuarto Libro del Grimorio, Bestiario, Linajes y Glosario (180 páginas)</strong> en formato <strong>PDF vectorial sobre pergamino</strong>, <strong>Microsoft Word (<code>.docx</code>)</strong> y <strong>ePub (<code>.epub</code> para Kindle, Apple Books y Kobo)</strong>.
   </p>
   ${downloadCardsHTML()}
   <h2 class="title">Galería Descargable de Todas las Portadas, Contraportadas, Lomo y Marcapáginas</h2>
